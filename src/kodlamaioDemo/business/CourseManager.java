@@ -18,6 +18,11 @@ public class CourseManager {
 		if (course.getPrice() < 0.0) {
 			throw new Exception("Kurs fiyatı 0 TL'den az olamaz!");
 		}
+		for (Course c : courseDao.getAll()) {
+			if (c.getCourseName().equals(course.getCourseName())) {
+				throw new Exception("Aynı isimde birden fazla kurs olamaz!");
+			}
+		}
 		courseDao.add(course);
 		for (Logger logger : loggers) {
 			logger.log(course.getCourseName());
